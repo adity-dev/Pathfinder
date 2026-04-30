@@ -42,10 +42,10 @@ export default function Sidebar({
   const settingsLink = variant === "admin" ? "/admin" : "/creator";
 
   return (
-    <nav className="h-screen w-64 fixed left-0 top-0 hidden md:flex flex-col bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40">
+    <nav className="h-screen pt-10 w-64 fixed left-0 top-0 hidden md:flex flex-col bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 z-40">
       <div className="flex flex-col h-full p-4 space-y-2">
         {/* Brand */}
-        <div className="mb-8 px-4 py-2">
+        {/* <div className="mb-8 px-4 py-2">
           <Link
             href="/"
             className="text-xl font-extrabold text-blue-600 dark:text-blue-400 hover:text-blue-500 transition-colors"
@@ -53,7 +53,7 @@ export default function Sidebar({
             Pathfinder
           </Link>
           <p className="text-xs text-slate-500 mt-0.5">{brandLabel}</p>
-        </div>
+        </div> */}
 
         {/* Nav Links */}
         <div className="space-y-1 flex-1">

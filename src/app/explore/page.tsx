@@ -39,13 +39,14 @@ function ExploreContent() {
   const [category, setCategory] = useState(
     searchParams.get("category") || "All",
   );
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(searchParams.get("location") || "");
 
   const fetchEvents = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
       if (search) params.set("search", search);
+      if (location) params.set("location", location);
       if (category && category !== "All") params.set("category", category);
       const res = await fetch(`/api/events?${params.toString()}`);
       if (res.ok) setEvents(await res.json());
@@ -53,16 +54,20 @@ function ExploreContent() {
       /* ignore */
     }
     setLoading(false);
-  }, [search, category]);
+  }, [search, location, category]);
 
   useEffect(() => {
-    fetchEvents();
+    const handler = setTimeout(() => {
+      fetchEvents();
+    }, 400);
+
+    return () => clearTimeout(handler);
   }, [fetchEvents]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     router.push(
-      `/explore?search=${encodeURIComponent(search)}&category=${category}`,
+      `/explore?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}&category=${category}`,
     );
     fetchEvents();
   };
@@ -72,7 +77,7 @@ function ExploreContent() {
   const gridEvents = events.slice(3);
 
   return (
-    <main className="flex-1 max-w-6xl mx-auto w-full px-6 lg:px-12 py-12 flex flex-col gap-12">
+    <main className="flex-1 max-w-6xl mx-auto w-full pt-32 px-6 lg:px-12 py-12 flex flex-col gap-12">
       {/* Hero & Filter Section */}
       <section className="flex flex-col gap-6">
         <h1 className="text-5xl font-black tracking-tight text-[#181c1e]">

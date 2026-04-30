@@ -53,7 +53,7 @@ export default async function AdminDashboard() {
   return (
     <div>
       {/* Header */}
-      <header className="mb-8 flex justify-between items-center">
+      <header className="mb-8 pt-32 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-[#181c1e]">
             Platform Overview

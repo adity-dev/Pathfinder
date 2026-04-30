@@ -10,11 +10,15 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const search = searchParams.get("search");
+    const location = searchParams.get("location");
     const limit = parseInt(searchParams.get("limit") || "20");
 
     const events = await prisma.event.findMany({
       where: {
         ...(category && category !== "All" ? { category } : {}),
+        ...(location
+          ? { location: { contains: location, mode: "insensitive" } }
+          : {}),
         ...(search
           ? {
               OR: [
